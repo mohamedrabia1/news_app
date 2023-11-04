@@ -1,10 +1,6 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:news_app/ui/screens/news/news_screen/news_screen.dart';
-
+import 'package:news_app/ui/screens/home/home_screen.dart';
 import '../../utilits/app_assets.dart';
-
 class SplashScreen extends StatefulWidget {
 static const routeName = "splash";
 
@@ -18,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 3),(){
-      Navigator.pushReplacementNamed(context, NewsScreen.routeName);
+      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
     });
   }
   @override

@@ -13,7 +13,7 @@ abstract class AppTheme{
       fontSize: 20,color: AppColor.black);
 
   static ThemeData lightTheme = ThemeData(
-     scaffoldBackgroundColor: AppColor.accentColor,
+      scaffoldBackgroundColor: AppColor.accentColor,
     primaryColor: AppColor.primaryColor,
     appBarTheme: AppBarTheme(
       iconTheme: IconThemeData(color: AppColor.black),
