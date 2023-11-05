@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/data/api_manger.dart';
+import 'package:news_app/model/articales_responces_dm.dart';
 import 'package:news_app/model/category_dm.dart';
 import 'package:news_app/model/sources_response.dart';
-import 'package:news_app/ui/screens/home/tabs/news_tab/tab_content.dart';
+import 'package:news_app/ui/screens/home/tabs/news_tab/articles_tab.dart';
 import 'package:news_app/ui/utilits/app_color.dart';
 
 class NewsTab extends StatefulWidget {
@@ -51,7 +52,7 @@ int currentTabIndex = 0;
             ),
             Expanded(
               child: TabBarView(children: sources.map((source) {
-                return TabContent(source);
+                return ArticlesTab(source);
               }).toList()
               ),
             ),
