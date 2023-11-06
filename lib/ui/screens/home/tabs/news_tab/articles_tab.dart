@@ -18,7 +18,7 @@ class _ArticlesTabState extends State<ArticlesTab> {
   @override
   Widget build(BuildContext context) {
     return  FutureBuilder<ArticalesResponcesDm>(
-      future: ApiManager.getArticles(widget.sourcesDM.id!),
+      future: ApiManager.getArticles(sourceId: widget.sourcesDM.id!),
       builder:(context,snapShot){
         if(snapShot.hasError){
           return Text(snapShot.error.toString());

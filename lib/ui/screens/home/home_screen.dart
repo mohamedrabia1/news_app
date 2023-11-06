@@ -1,7 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:news_app/data/api_manger.dart';
+import 'package:news_app/model/articales_responces_dm.dart';
 import 'package:news_app/model/category_dm.dart';
 import 'package:news_app/ui/screens/home/tabs/categories/categories_tab.dart';
+import 'package:news_app/ui/screens/home/tabs/news_tab/articales_widget.dart';
 import 'package:news_app/ui/screens/home/tabs/news_tab/news_tab.dart';
 import 'package:news_app/ui/screens/home/tabs/setting_tab/setting_tab.dart';
 import 'package:news_app/ui/utilits/app_color.dart';
@@ -47,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.all(10),
               child: IconButton(onPressed: (){
-
+                showSearch(context: context, delegate: NewDelegate());
               },
                   icon: Icon(Icons.search,size: 30)),
             )
@@ -114,6 +117,62 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+}
+Widget buildListView(List<ArticleDM> articles) {
+  return ListView.builder(
+      itemCount: articles.length,
+      itemBuilder: (context, index){
+        return ArticalesWidget(articles[index]);
+      });
+}
+
+class NewDelegate extends SearchDelegate{
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return[];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+   return Icon(Icons.search,size: 26,);
+  }
+  @override
+   ThemeData appBarTheme(BuildContext context) {
+    return Theme.of(context).copyWith(
+      appBarTheme: AppBarTheme(
+
+        color: AppColor.primaryColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(color: AppColor.white),
+
+      ),
+      textTheme: TextTheme(
+          headline6: TextStyle(color: AppColor.white)),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+   return FutureBuilder<ArticalesResponcesDm>(
+      future: ApiManager.getArticles(query: query ),
+      builder:(context,snapShot){
+        if(snapShot.hasError){
+          return Text(snapShot.error.toString());
+        }else if(snapShot.hasData){
+          return buildListView(snapShot.data!.articles!);
+        }else{
+          return Center(child: CircularProgressIndicator());
+        }
+      } ,
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return Text("");
   }
 }
 

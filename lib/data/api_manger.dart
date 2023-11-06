@@ -21,10 +21,11 @@ abstract class ApiManager{
   }
 
 
-  static  Future<ArticalesResponcesDm> getArticles(String sourceId)async{
+  static  Future<ArticalesResponcesDm> getArticles({String? sourceId, String? query})async{
     Uri url = Uri.https(baseUrl,"/v2/everything",{
       "apiKey" : apiKey ,
-      "sources" : sourceId
+      "sources" : sourceId,
+      "q" : query
     });
     http.Response response = await http.get(url);
     Map json = jsonDecode(response.body) as Map;
